@@ -13,6 +13,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.amazonaws.services.guardduty.model.Evidence;
+
 /**
  * 結合テスト ログイン機能①
  * ケース02
@@ -43,6 +45,9 @@ public class Case02 {
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//URLの確認
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
+		//
+		getEvidence(new Evidence() {
+		});
 	}
 
 	@Test
@@ -71,6 +76,9 @@ public class Case02 {
 		WebElement msgElement = webDriver.findElement(By.className("error"));
 		assertEquals(true, msgElement.isDisplayed());
 		assertEquals("* ログインに失敗しました。", msgElement.getText());
+		//
+		getEvidence(new Evidence() {
+		});
 
 	}
 

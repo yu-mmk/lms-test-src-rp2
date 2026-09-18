@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import com.amazonaws.services.guardduty.model.Evidence;
+
 /**
  * 結合テスト ログイン機能①
  * ケース01
@@ -41,6 +43,9 @@ public class Case01 {
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//URLの確認
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
+		//
+		getEvidence(new Evidence() {
+		});
 	}
 
 }
