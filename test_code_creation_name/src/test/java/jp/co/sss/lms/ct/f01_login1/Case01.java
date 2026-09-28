@@ -38,12 +38,12 @@ public class Case01 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		webDriver.get("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 		//表示されているタイトルの確認
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//URLの確認
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
-		//
+		//エビデンス取得
 		getEvidence(new Evidence() {
 		});
 	}

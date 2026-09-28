@@ -40,12 +40,12 @@ public class Case02 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		webDriver.get("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 		//表示されているタイトルの確認
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//URLの確認
 		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
-		//
+		//エビデンス取得
 		getEvidence(new Evidence() {
 		});
 	}
@@ -54,12 +54,6 @@ public class Case02 {
 	@Order(2)
 	@DisplayName("テスト02 DBに登録されていないユーザーでログイン")
 	void test02() {
-		webDriver.get("http://localhost:8080/lms");
-		//表示されているタイトルの確認
-		assertEquals("ログイン | LMS", webDriver.getTitle());
-		//URLの確認
-		assertEquals("http://localhost:8080/lms/", webDriver.getCurrentUrl());
-
 		//画面入力
 		WebElement idElement = webDriver.findElement(By.id("loginId"));
 		idElement.clear(); // 初期値をクリア
@@ -76,7 +70,7 @@ public class Case02 {
 		WebElement msgElement = webDriver.findElement(By.className("error"));
 		assertEquals(true, msgElement.isDisplayed());
 		assertEquals("* ログインに失敗しました。", msgElement.getText());
-		//
+		//エビデンス取得
 		getEvidence(new Evidence() {
 		});
 
