@@ -3,7 +3,6 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.amazonaws.services.guardduty.model.Evidence;
 
@@ -112,8 +110,7 @@ public class Case05 {
 		WebElement linkTextElement = webDriver.findElement(By.linkText("よくある質問"));
 		linkTextElement.click();
 		//質問画面に遷移
-		final WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-		wait.until(driver -> driver.getWindowHandles().size() == 2);
+		pageLoadTimeout(10);
 		// 新しいタブへ切り替える
 		for (String windowHandle : webDriver.getWindowHandles()) {
 			if (!windowHandle.equals(originalWindow)) {
