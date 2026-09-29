@@ -146,6 +146,7 @@ public class Case05 {
 		}
 		//表示されている件数
 		assertEquals(1, elements.size());
+		scrollBy("200");
 		//エビデンス取得
 		getEvidence(new Evidence() {
 		});
@@ -161,6 +162,7 @@ public class Case05 {
 		//入力欄チェック
 		WebElement keywordElement = webDriver.findElement(By.id("form"));
 		assertEquals(null, keywordElement.getAttribute("keyword"));
+		scrollBy("-200");
 		//エビデンス取得
 		getEvidence(new Evidence() {
 		});
