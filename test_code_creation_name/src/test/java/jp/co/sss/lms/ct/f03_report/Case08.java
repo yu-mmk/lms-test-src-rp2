@@ -42,7 +42,7 @@ public class Case08 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		webDriver.get("http://localhost:8080/lms");
+		goTo("http://localhost:8080/lms");
 		//表示されているタイトルの確認
 		assertEquals("ログイン | LMS", webDriver.getTitle());
 		//URLの確認
@@ -128,21 +128,67 @@ public class Case08 {
 	@Order(5)
 	@DisplayName("テスト05 報告内容を修正して「提出する」ボタンを押下しセクション詳細画面に遷移")
 	void test05() {
-		// TODO ここに追加
+		//所感に入力
+		WebElement reportElement = webDriver.findElement(By.id("content_1"));
+		reportElement.sendKeys("修正");
+
+		scrollBy("500");
+		WebElement registElement = webDriver
+				.findElement(By.cssSelector(".well.bs-component button[type='submit'].btn.btn-primary"));
+		registElement.click();
+		visibilityTimeout(By.className("breadcrumb"), 10);
+		//エビデンス取得
+		getEvidence(new Evidence() {
+		});
 	}
 
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 上部メニューの「ようこそ○○さん」リンクからユーザー詳細画面に遷移")
 	void test06() {
-		// TODO ここに追加
+		WebElement linkTextElement = webDriver.findElement(By.linkText("ようこそ受講生ＡＡ１さん"));
+		linkTextElement.click();
+		visibilityTimeout(By.tagName("h2"), 10);
+		//エビデンス取得
+		getEvidence(new Evidence() {
+		});
 	}
 
 	@Test
 	@Order(7)
 	@DisplayName("テスト07 該当レポートの「詳細」ボタンを押下しレポート詳細画面で修正内容が反映される")
 	void test07() {
-		// TODO ここに追加
+		scrollBy("1000");
+		List<WebElement> reportElements = webDriver
+				.findElements(By.cssSelector("table.table-hover tr:has(td)"));
+		//詳細ボタンの取得
+		for (WebElement reportElement : reportElements) {
+			String tdResult = reportElement.findElements(By.cssSelector("td")).get(0).getText();
+
+			if (tdResult.equals("2022年10月2日(日)")) {
+				WebElement detailButtonElement = reportElement
+						.findElement(By.cssSelector("input[type='submit'][value='詳細']"));
+				detailButtonElement.click();
+				visibilityTimeout(By.tagName("h2"), 10);
+
+				List<WebElement> reportDetailElements = webDriver
+						.findElements(By.cssSelector("table.table-hover tr:has(th)"));
+
+				for (WebElement reportDetailElement : reportDetailElements) {
+					String thResult = reportDetailElement.findElement(By.cssSelector("th")).getText();
+					//所感入力欄取得
+					if (thResult.equals("所感")) {
+						WebElement impressionElement = reportDetailElement.findElement(By.cssSelector("td"));
+						assertEquals("週報のサンプルです。修正", impressionElement.getText());
+						//エビデンス取得
+						getEvidence(new Evidence() {
+						});
+						break;
+					}
+				}
+				break;
+			}
+		}
 	}
 
 }
